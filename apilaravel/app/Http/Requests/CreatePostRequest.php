@@ -23,9 +23,9 @@ class CreatePostRequest extends FormRequest
      */
     public function rules()
     {
-           return [
+        return [
             'title'=>'required',
-            'ur'=>'required|url'
+            'url'=>'required|url'
         ];
     }
 }

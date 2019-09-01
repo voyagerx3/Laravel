@@ -1,12 +1,29 @@
 
+@php
+$post_category_id=0;
+@endphp
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 @if( isset($post) )
+@php
+ $post_category_id=$post->category_id;   
+@endphp
+
 <h2>{{$post->title}}</h2>
+    
     <form action="{{ route('update_post_path', ['post' => $post->id]) }}" method="POST">
     {{ method_field('PUT') }}
 @else
     <form action="{{ route('store_post_path') }}" method="POST">
 @endif
-
+catid:{{$post_category_id }}
     {{ csrf_field() }}
 
     <!-- Title Field -->
@@ -22,7 +39,7 @@
   <option>Select Category</option>
     
   @foreach ($category as $cat)
-    <option value="{{ $cat->id }}"  }}> 
+    <option value="{{ $cat->id }}"  {{old('category_id', $cat->id==$post_category_id ? "selected" : "" )}}> 
         {{ $cat->name }} 
     </option>
   @endforeach    

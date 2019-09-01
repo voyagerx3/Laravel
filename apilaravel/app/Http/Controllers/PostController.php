@@ -45,7 +45,12 @@ class PostController extends Controller
      */
     public function store(CreatePostRequest $request)
     {
-        dd($request->all());
+        $post = new Post;
+        $post->fill($request->only('title', 'content','category_id', 'url'));
+        $post->user_id = $request->user()->id;
+        $post->save();
+        session()->flash('message', 'Post Created!');
+        return redirect()->route('posts_path');
     }
 
     /**
