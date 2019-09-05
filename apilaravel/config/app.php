@@ -14,7 +14,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-
+    'nametxt' => env('APP_NAMEx', 'Api Laravel'),
     /*
     |--------------------------------------------------------------------------
     | Application Environment
