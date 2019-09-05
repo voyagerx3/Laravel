@@ -15,7 +15,12 @@
 //     return view('welcome');
 // });
 
+ 
 
+Auth::routes();
+Route::group(['middleware'=>'auth'],function(){
+    
+    Route::name('home')->get('/home', 'HomeController@index');
     Route::name('create_post_path')->get('/post/create', 'PostController@create');
     Route::name('store_post_path')->post('/post', 'PostController@store');
     Route::name('edit_post_path')->get('/post/{post}/edit', 'PostController@edit');
@@ -23,6 +28,10 @@
     Route::name('delete_post_path')->delete('/posts/{post}', 'PostController@delete');
     Route::name('create_comment_path')->post('/posts/{post}/comments', 'PostCommentsController@create');
 
+
+});
+
+Route::name('posts_path')->get('/', 'PostController@index');
 Route::name('posts_path')->get('/posts','PostController@index');
-Route::name('create_post_path')->get('post/create','PostController@create');
 Route::name('post_path')->get('/post/{post}','PostController@show');
+

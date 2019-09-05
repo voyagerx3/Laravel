@@ -20,7 +20,7 @@ class PostController extends Controller
     {
         //$posts = Post::with('user')->orderBy('id', 'desc')->paginate(10);
         //$posts = Post::orderby('id','desc')->paginate(5);
-        $posts = Post::paginate(5);
+        $posts = Post::orderby('id','desc')->paginate(5);
         return view('posts.index')->with(['posts' => $posts]);
     }
 
@@ -87,9 +87,9 @@ class PostController extends Controller
      */
     public function update(Post $post,UpdatePostRequest $request)
     {
-        //
+        //dd($request->only('title','category_id','content','url'));
         $post->update(
-            $request->only('title','category_id','content','url')
+            $request->only('title','content','url','category_id')
         );
         return redirect()->route('post_path', ['post' => $post->id]);
     }
