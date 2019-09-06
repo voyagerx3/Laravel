@@ -2,15 +2,7 @@
 @php
 $post_category_id=0;
 @endphp
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+@include('layouts._errors')
 @if( isset($post) )
 @php
  $post_category_id=$post->category_id;   
@@ -34,14 +26,18 @@ catid:{{$post_category_id }}
 <!-- Category flied -->
 <div class="form-group">
     <label for="title">Category:</label>
-<select class="form-control" name="category_id">
+<select class="form-control" name="category_id" class="form-control">
    
-  <option>Select Category</option>
+  <option value="0">Select Category</option>
     
   @foreach ($category as $cat)
-    <option value="{{ $cat->id }}"  {{old('category_id', $cat->id==$post_category_id ? "selected" : "" )}}> 
-        {{ $cat->name }} 
-    </option>
+    @if (old('category_id') == $cat->id)
+        <option value="{{ $cat->id }}" selected>{{ $cat->name }}</option>
+    @else
+        <option value="{{ $cat->id }}" {{old('category_id', $cat->id==$post_category_id ? "selected" : "" )}}> {{ $cat->name }}</option>
+    @endif
+
+ 
   @endforeach    
 </select>
 </div>

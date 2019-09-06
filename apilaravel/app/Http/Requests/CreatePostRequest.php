@@ -25,7 +25,8 @@ class CreatePostRequest extends FormRequest
     {
         return [
             'title'=>'required',
-            'url'=>'required|url'
+            'url'=>'required|url',
+            'category_id'=>'required|not_in:0'
         ];
     }
 }

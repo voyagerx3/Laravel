@@ -100,8 +100,15 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function delete(Post $post)
     {
         //
+
+        if($post->user_id != \Auth::user()->id) {
+            return redirect()->route('posts_path');
+        }
+        $post->delete();
+        session()->flash('message', 'Post Deleted!');
+        return redirect()->route('posts_path');
     }
 }
