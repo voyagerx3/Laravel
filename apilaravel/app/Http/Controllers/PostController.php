@@ -32,8 +32,7 @@ class PostController extends Controller
     public function create()
     {
         //
-        $category = Category::all();
-        
+          $category = Category::all();
         return view('posts.create')->with(['category'=>$category ]);
     }
 
@@ -62,6 +61,8 @@ class PostController extends Controller
     public function show(Post $post)
     {
         //Post $post
+        //$category = Category::where('id',$post->category_id)->get();
+        //dd($post);
         return view('posts.show')->with(['post'=>$post]);//
     }
 
@@ -74,6 +75,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         //
+        if($post->user_id != \Auth::user()->id) {
+            return redirect()->route('posts_path');
+        }
         $category = Category::all();
         return view('posts.edit')->with(['post' => $post,'category'=>$category]);
     }
@@ -91,6 +95,7 @@ class PostController extends Controller
         $post->update(
             $request->only('title','content','url','category_id')
         );
+        session()->flash('message', 'Post Updated!');
         return redirect()->route('post_path', ['post' => $post->id]);
     }
 
