@@ -3,7 +3,8 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <h2>{{$post->title}}  
+        <h2>{{$post->title}} 
+            @if($post->wasCreatedBy( Auth::user() )) 
             <small class="float-right d-flex flex-row">
                 <a href="{{route('edit_post_path',['post'=>$post->id])}}" class="btn btn-info">Edit</a>
                  <form action="{{ route('delete_post_path', ['post' => $post->id]) }}" method="POST">
@@ -12,6 +13,7 @@
                                 <button type="submit" class='btn btn-danger'>Delete</button>
                             </form>
             </small>
+            @endif
         </h2>  
         <p>{{$post->category->name}}</p>   
         <p>{{$post->content}}</p>
