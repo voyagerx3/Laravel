@@ -15,6 +15,8 @@ class CategoryController extends Controller
     public function index()
     {
         //
+        $categories = Category::orderby('id','desc')->paginate(5);
+        return view('categories.index')->with(['categories' => $categories]);
     }
 
     /**
@@ -47,6 +49,7 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         //
+        return view('categories.show')->with(['category'=>$category]);//
     }
 
     /**

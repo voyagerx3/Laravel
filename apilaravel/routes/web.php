@@ -35,3 +35,7 @@ Route::name('posts_path')->get('/', 'PostController@index');
 Route::name('posts_path')->get('/posts','PostController@index');
 Route::name('post_path')->get('/post/{post}','PostController@show');
 
+
+Route::name('categories_path')->get('/categories','CategoryController@index');
+Route::name('category_path')->get('/category/{category}','CategoryController@show');
+

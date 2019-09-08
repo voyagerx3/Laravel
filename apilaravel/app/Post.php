@@ -19,6 +19,6 @@ class Post extends Model
         if( is_null($user) ) {
             return false;
         }
-        return $this->user_id === $user->id;
+        return $this->user_id === $user->id; 
     }    
 }
