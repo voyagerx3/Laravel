@@ -26,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     /**
@@ -35,9 +35,16 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    
+    public function store(CreateCategoryRequest $request)
     {
-        //
+         
+        $category = new Category;
+        $category->fill($request->only('name', 'description'));
+        $category->user_id = $request->user()->id;
+        $category->save();
+        session()->flash('message', 'Category Created!');
+        return redirect()->route('categories_path');
     }
 
     /**
@@ -60,7 +67,11 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+         if($category->user_id != \Auth::user()->id) {
+            return redirect()->route('categories_path');
+        }
+         
+        return view('categories.edit')->with(['category'=>$category]);
     }
 
     /**
@@ -72,7 +83,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+           
+        $category->update(
+            $request->only('name','description')
+        );
+        session()->flash('message', 'category Updated!');
+        return redirect()->route('category_path', ['category' => $category->id]);
     }
 
     /**
@@ -81,8 +97,14 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function delete(Category $category)
     {
         //
+        if($category->user_id != \Auth::user()->id) {
+            return redirect()->route('categories_path');
+        }
+        $category->delete();
+        session()->flash('message', 'Category Deleted!');
+        return redirect()->route('categories_path');
     }
 }

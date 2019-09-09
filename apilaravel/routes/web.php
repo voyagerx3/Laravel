@@ -27,6 +27,7 @@ Route::group(['middleware'=>'auth'],function(){
     Route::name('update_post_path')->put('/post/{post}', 'PostController@update');
     Route::name('delete_post_path')->delete('/post/{post}', 'PostController@delete');
     
+    
     Route::name('create_category_path')->get('/category/create', 'CategoryController@create');
     Route::name('store_category_path')->post('/category', 'CategoryController@store');
     Route::name('edit_category_path')->get('/category/{category}/edit', 'CategoryController@edit');
