@@ -33,7 +33,22 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                    <li class=""><a href="{{route('create_post_path')}}" >Create</a></li>
+                        <li class="nav-item dropdown">
+                            <a href="{{route('posts_path')}}" class="nav-link">Posts</a>
+                                <ul class="dropdown-menu abc" aria-labelledby="dropdown_target">
+                                    <li class="dropdown-item dropdown">
+                                        <a href="{{route('create_post_path')}}" >Post</a>
+                                    </li>
+                                </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="{{route('categories_path')}}" class="nav-link">Categories</a>
+                                <ul class="dropdown-menu abc" aria-labelledby="dropdown_target">
+                                    <li class="dropdown-item dropdown">
+                                        <a href="{{route('create_category_path')}}" >Category</a>
+                                    </li>
+                                </ul>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
